@@ -108,7 +108,7 @@ Each tile of primitives / predicates contains multiple entries (to fill half of 
 
 ## Testing
 ```bash
-[95j][mac122730][±][master → origin ↑1570 S:10 U:3 ✗][~/work/arborx/ArborX/build]
+$ export DYLD_LIBRARY_PATH=/Users/95j/work/arborx/boost_1_75_0/install/lib
 $ ctest
 Test project /Users/95j/work/arborx/ArborX/build
       Start  1: ArborX_DetailsUtils_Test
@@ -147,3 +147,5 @@ Test project /Users/95j/work/arborx/ArborX/build
 Total Test time (real) =   6.07 sec
 ```
 ## Performance
+
+Performance results in the dedicated [performance page](./performance.md)
