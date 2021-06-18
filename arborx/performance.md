@@ -1,3 +1,32 @@
+# Performance
+
+Runs on Summit.
+```bash
+#BSUB -W 0:30
+#BSUB -nnodes 1
+#BSUB -J arborx_brute_force
+#BSUB -o arborx_bf%J.out
+#BSUB -e arborx_bf%J.err
+
+for i in {1..60}; do
+  cnt=$(( $i * 500 ))
+  echo "Problem size $cnt"
+  for _ in {1..10}; do
+    jsrun -n1 -a1 -c7 -g1 -r1 --bind=proportional-packed:7 --launch_distribution=packed ./examples/brute_force/ArborX_BruteForce.exe -p $cnt -q $cnt -r 10
+  done
+done
+```
+
+## Collisions between spheres and points
+
+*Fixed radix for the spheres*
+![fix radix](results/revisited_log.png)
+
+*Linear increasing radix for the spheres*
+![fix radix](results/revisited_linear0.47.png)
+
+*Logarithmic increasing radix for the spheres*
+![fix radix](results/revisited_fixed100.png)
 
 ## Measure time
 
