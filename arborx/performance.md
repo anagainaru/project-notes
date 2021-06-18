@@ -20,13 +20,13 @@ done
 ## Collisions between spheres and points
 
 *Fixed radix for the spheres*
-![fix radix](results/revisited_log.png)
+![fix radix](results/revisited_fixed100.png)
 
 *Linear increasing radix for the spheres*
-![fix radix](results/revisited_linear0.47.png)
+![linear radix](results/revisited_linear0.47.png)
 
 *Logarithmic increasing radix for the spheres*
-![fix radix](results/revisited_fixed100.png)
+![Log radix](results/revisited_log.png)
 
 ## Measure time
 
