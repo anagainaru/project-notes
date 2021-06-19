@@ -12,7 +12,7 @@ for i in {1..60}; do
   cnt=$(( $i * 500 ))
   echo "Problem size $cnt"
   for _ in {1..10}; do
-    jsrun -n1 -a1 -c7 -g1 -r1 --bind=proportional-packed:7 --launch_distribution=packed ./examples/brute_force/ArborX_BruteForce.exe -p $cnt -q $cnt -r 10
+    jsrun -n1 -a1 -c7 -g1 -r1 ./examples/brute_force/ArborX_BruteForce.exe -p $cnt -q $cnt -r 10
   done
 done
 ```
