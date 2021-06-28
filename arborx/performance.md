@@ -54,7 +54,7 @@ collision_ratio = (float)(indices.extent(0)) / (nprimitives * nqueries));
 
 Linear increasing radix keeps the collition ratio to 0.47 regardless of the problem size and the logarithmic increase radix has collision rations of less than to 0.01
 
-![linear radix](results/evisited_problem_size.png)
+![linear radix](results/revisited_problem_size.png)
 
 ### Variying the problem size with a fix radix
 
