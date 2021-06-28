@@ -1,6 +1,6 @@
 # Performance
 
-Runs on Summit.
+Runs on Summit. For each parameter set, there are 10 cold start runs out of a total of 100 runs. Bash script to submit the code:
 ```bash
 #BSUB -W 0:30
 #BSUB -nnodes 1
@@ -19,14 +19,54 @@ done
 
 ## Collisions between spheres and points
 
-*Fixed radix for the spheres*
-![fix radix](results/revisited_fixed100.png)
+Problem size is represented by the number of primitives (which is equal to the number of predicates).
 
-*Linear increasing radix for the spheres*
-![linear radix](results/revisited_linear0.47.png)
+The example code identifies collisions between points and shperes. The sphere can have different radix (the following example shows linear radix).
 
-*Logarithmic increasing radix for the spheres*
-![Log radix](results/revisited_log.png)
+```c++
+template <> struct ArborX::AccessTraits<Dummy, ArborX::PrimitivesTag> {
+  using memory_space = MemorySpace;
+  using size_type = typename MemorySpace::size_type;
+  static KOKKOS_FUNCTION size_type size(Dummy const &d) { return d.count; }
+  static KOKKOS_FUNCTION Point get(Dummy const &, size_type i) {
+    return {{(float)i, (float)i, (float)i}};
+  }
+};
+
+template <> struct ArborX::AccessTraits<Dummy, ArborX::PredicatesTag> {
+  using memory_space = MemorySpace;
+  using size_type = typename MemorySpace::size_type;
+  static KOKKOS_FUNCTION size_type size(Dummy const &d) { return d.count; }
+  static KOKKOS_FUNCTION auto get(Dummy const &, size_type i) {
+    return attach(intersects(Sphere{{{(float)i, (float)i, (float)i}},
+                                    (float) i}),
+                  i);
+  }
+};
+```
+
+The collision ratio defines the amount of detected collisions:
+```c++
+collision_ratio = (float)(indices.extent(0)) / (nprimitives * nqueries));
+```
+
+### Varying the problem size
+
+Linear increasing radix keeps the collition ratio to 0.47 regardless of the problem size and the logarithmic increase radix has collision rations of less than to 0.01
+
+![linear radix](results/evisited_problem_size.png)
+
+### Variying the problem size with a fix radix
+
+The amount of collisions decrease as the problem size increases.
+
+![fix radix](results/revisited_fixed.png)
+
+### Varying the amount of collisions
+
+Keeping the problem size fixed.
+
+![fix problem size](results/revisited_collisions.png)
 
 ## Measure time
 
