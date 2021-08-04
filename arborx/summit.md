@@ -1,5 +1,12 @@
 # Submission on Summit
 
+Arborx was build and run with the following modules
+```
+module load cuda
+module load gcc
+```
+All submissions are on one node.
+
 ### For fixed radix
 
 Batch Script
